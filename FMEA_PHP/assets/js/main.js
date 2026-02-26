@@ -18,55 +18,129 @@
     setupAccordions();
     setupModals();
     setupSmoothScroll();
+    setupSliders();
   });
 
   function setupMegaMenu() {
-    var root = $(".mega-menu-root");
-    if (!root.elements.length) return;
+    var menuState = {
+      activeRoot: null,
+      activeKey: null,
+      timer: null
+    };
 
-    var container = root.elements[0];
-    var openKey = null;
+    function openPanel(root, key, trigger) {
+      if (menuState.timer) clearTimeout(menuState.timer);
+      
+      // If switching roots, close previous root immediately
+      if (menuState.activeRoot && menuState.activeRoot !== root) {
+        closeAll(menuState.activeRoot);
+      }
 
-    function openPanel(key) {
-      openKey = key;
-      root.removeClass("hidden").addClass("is-open");
-      $(".mega-menu-panel", container).each(function () {
-        var panelKey = this.getAttribute("data-mega-panel");
-        if (panelKey === key) {
-          this.classList.remove("hidden");
+      menuState.activeRoot = root;
+      menuState.activeKey = key;
+
+      root.classList.remove("hidden");
+      root.classList.add("is-open");
+      
+      // Position the root if it is a dropdown (not full-width)
+      if (!root.classList.contains("w-full")) {
+        var triggerRect = trigger.getBoundingClientRect();
+        var parentRect = root.parentElement.getBoundingClientRect();
+        var leftPos = triggerRect.left - parentRect.left;
+        
+        // Safety check to keep it within the container
+        var rootWidth = root.offsetWidth || 240;
+        if (leftPos + rootWidth > parentRect.width) {
+          leftPos = parentRect.width - rootWidth;
+        }
+        if (leftPos < 0) leftPos = 0;
+        
+        root.style.left = leftPos + "px";
+      }
+
+      root.querySelectorAll("[data-mega-panel]").forEach(function (panel) {
+        if (panel.getAttribute("data-mega-panel") === key) {
+          panel.classList.remove("hidden");
         } else {
-          this.classList.add("hidden");
+          panel.classList.add("hidden");
         }
       });
+
+      // Update active state on triggers
+      var nav = root.closest("nav") || trigger.closest("nav");
+      if (nav) {
+        nav.querySelectorAll("[data-mega-menu]").forEach(function(el) {
+          el.classList.remove("is-active");
+        });
+        trigger.classList.add("is-active");
+      }
     }
 
-    function closeAll() {
-      openKey = null;
-      root.addClass("hidden").removeClass("is-open");
-      $(".mega-menu-panel", container).each(function () {
-        this.classList.add("hidden");
+    function closeAll(root) {
+      if (!root) return;
+      root.classList.add("hidden");
+      root.classList.remove("is-open");
+      root.querySelectorAll("[data-mega-panel]").forEach(function (panel) {
+        panel.classList.add("hidden");
       });
+      
+      var nav = root.closest("nav");
+      if (nav) {
+        nav.querySelectorAll("[data-mega-menu]").forEach(function(el) {
+          el.classList.remove("is-active");
+        });
+      }
+
+      if (menuState.activeRoot === root) {
+        menuState.activeRoot = null;
+        menuState.activeKey = null;
+      }
     }
 
-    $("[data-mega-menu]").each(function () {
-      var triggerWrapper = this;
+    function startCloseTimer() {
+      if (menuState.timer) clearTimeout(menuState.timer);
+      menuState.timer = setTimeout(function() {
+        if (menuState.activeRoot) {
+          closeAll(menuState.activeRoot);
+        }
+      }, 300); // Increased to 300ms for smoother handoffs
+    }
+
+    $(".mega-menu-trigger").each(function () {
+      var btn = this;
+      var triggerWrapper = btn.parentElement;
       var key = triggerWrapper.getAttribute("data-mega-menu");
-      var btn = triggerWrapper.querySelector(".mega-menu-trigger");
-      if (!btn) return;
+      if (!key) return;
+
+      var nav = btn.closest("nav");
+      var root = nav ? nav.querySelector(".mega-menu-root") : document.querySelector(".mega-menu-root");
+      if (!root) return;
 
       triggerWrapper.addEventListener("mouseenter", function () {
-        openPanel(key);
+        openPanel(root, key, triggerWrapper);
       });
+
       triggerWrapper.addEventListener("mouseleave", function (e) {
-        var related = e.relatedTarget;
-        if (!container.contains(related)) {
-          closeAll();
-        }
+        startCloseTimer();
       });
     });
 
-    container.addEventListener("mouseleave", function () {
-      closeAll();
+    $(".mega-menu-root").each(function() {
+      var root = this;
+      root.addEventListener("mouseenter", function() {
+        if (menuState.timer) clearTimeout(menuState.timer);
+      });
+      root.addEventListener("mouseleave", function() {
+        startCloseTimer();
+      });
+    });
+
+    document.addEventListener("click", function (e) {
+      if (!e.target.closest("[data-mega-menu]") && !e.target.closest(".mega-menu-root")) {
+        $(".mega-menu-root").each(function() {
+          closeAll(this);
+        });
+      }
     });
   }
 
@@ -91,10 +165,10 @@
         var isVisible = !panelEl.classList.contains("hidden");
         if (isVisible) {
           panelEl.classList.add("hidden");
-          if (icon) icon.style.transform = "rotate(45deg)";
+          if (icon) icon.style.transform = "rotate(0deg)";
         } else {
           panelEl.classList.remove("hidden");
-          if (icon) icon.style.transform = "rotate(225deg)";
+          if (icon) icon.style.transform = "rotate(180deg)";
         }
       });
     });
@@ -177,6 +251,42 @@
       e.preventDefault();
       var offsetTop = target.getBoundingClientRect().top + window.scrollY - 120;
       window.scrollTo({ top: offsetTop, behavior: "smooth" });
+    });
+  }
+
+  function setupSliders() {
+    // Standard Sliders (using data-slider-prev, data-slider-next, data-slider-content)
+    document.querySelectorAll("[data-slider-prev], [data-slider-next]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var id = this.getAttribute("data-slider-prev") || this.getAttribute("data-slider-next");
+        var isNext = this.hasAttribute("data-slider-next");
+        var container = document.querySelector('[data-slider-content="' + id + '"]');
+        if (!container) return;
+
+        // Calculate scroll amount based on first item width + gap
+        var firstItem = container.querySelector(":scope > *");
+        var scrollAmount = firstItem ? firstItem.offsetWidth + 24 : 300;
+        
+        container.scrollBy({
+          left: isNext ? scrollAmount : -scrollAmount,
+          behavior: "smooth",
+        });
+      });
+    });
+
+    // Legacy/Old Scroll Buttons Support
+    document.querySelectorAll(".scroll-btn").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var dir = this.getAttribute("data-scroll-dir");
+        var container = this.parentElement.querySelector("[data-scroll-container]");
+        if (!container) return;
+        
+        var scrollAmount = 324; // 300px width + 24px gap
+        container.scrollBy({
+          left: dir === "left" ? -scrollAmount : scrollAmount,
+          behavior: "smooth",
+        });
+      });
     });
   }
 })();

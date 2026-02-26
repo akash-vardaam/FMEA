@@ -1,10 +1,18 @@
-/* Small custom tweaks and helpers */
+/* Standard resets and helpers to match React look and feel */
+* {
+  box-sizing: border-box;
+}
 
-/* Ensure consistent centered layout for all container sections */
+body {
+  margin: 0;
+  padding: 0;
+}
+
 .container {
   margin-left: auto;
   margin-right: auto;
-  max-width: 1120px;
+  max-width: 1280px;
+  width: 100%;
 }
 
 a {
@@ -12,36 +20,62 @@ a {
   text-decoration: none;
 }
 
-a:hover {
-  text-decoration: none;
-}
-
-button {
+button, input, select, textarea {
   font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
 }
 
-/* Simple rotate utility for chevrons */
-.rotate-45 {
-  transform: rotate(45deg);
+/* Accordion Helpers */
+.accordion-icon, .lucide-chevron-down {
+  transition: transform 0.2s ease;
 }
 
-.-scale-x-100 {
-  transform: scaleX(-1);
-}
-
-/* Sticky header spacing helper */
-.sticky {
-  position: sticky;
-}
-
-/* Mega menu root visible state */
-.mega-menu-root.is-open {
-  display: block;
-}
-
-/* Accordion icon rotation */
-.accordion-icon[aria-expanded="true"],
 .accordion-trigger[aria-expanded="true"] .accordion-icon {
   transform: rotate(225deg);
+}
+
+.accordion-trigger[aria-expanded="true"] .lucide-chevron-down {
+  transform: rotate(180deg);
+}
+
+/* Hide scrollbars for the carousels but keep functionality */
+[data-scroll-container] {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+[data-scroll-container]::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
+/* Smooth transitions */
+.transition-all {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Typography defaults */
+body {
+  font-family: var(--font-body);
+}
+
+h1, h2, h3, h4, h5, h6, 
+blockquote, 
+blockquote p,
+.quote-text {
+  font-family: var(--font-display) !important;
+}
+
+cite, .quote-author {
+  font-family: var(--font-body) !important;
+}
+
+.font-display {
+  font-family: var(--font-display) !important;
+}
+
+.font-body {
+  font-family: var(--font-body) !important;
 }
 
