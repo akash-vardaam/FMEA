@@ -1,20 +1,11 @@
 <?php
-// Shared HTML <head> and opening <body> wrapper.
-// Each page should set $page_title (optional) and $rootPrefix before including this file.
-
 if (!isset($page_title)) {
   $page_title = "FMEA – Florida Music Education Association";
 }
 
-// $rootPrefix is used so this header works from both the project root and /pages.
-// Examples:
-// - From index.php          → $rootPrefix = ".";
-// - From pages/home.php     → $rootPrefix = "..";
 if (!isset($rootPrefix)) {
   $rootPrefix = ".";
 }
-
-// SVG icon helpers have been inlined into pages and components.
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,14 +15,12 @@ if (!isset($rootPrefix)) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title><?php echo htmlspecialchars($page_title, ENT_QUOTES, "UTF-8"); ?></title>
 
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap"
     rel="stylesheet">
 
-  <!-- Tailwind via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -133,7 +122,7 @@ if (!isset($rootPrefix)) {
           },
         },
       },
-  };
+    };
   </script>
 
   <style type="text/css">
@@ -176,7 +165,6 @@ if (!isset($rootPrefix)) {
     }
   </style>
 
-  <!-- CSS variables and local overrides -->
   <link rel="stylesheet" href="<?php echo $rootPrefix; ?>/assets/css/custom.css" />
 </head>
 

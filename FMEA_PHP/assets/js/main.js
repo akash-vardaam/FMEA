@@ -1,6 +1,3 @@
-// All interactive behavior for the static PHP site.
-// Uses the local mini jQuery helper (assets/js/jquery.min.js).
-
 (function () {
   if (typeof $ === "undefined") return;
 
@@ -31,7 +28,6 @@
     function openPanel(root, key, trigger) {
       if (menuState.timer) clearTimeout(menuState.timer);
       
-      // If switching roots, close previous root immediately
       if (menuState.activeRoot && menuState.activeRoot !== root) {
         closeAll(menuState.activeRoot);
       }
@@ -42,13 +38,11 @@
       root.classList.remove("hidden");
       root.classList.add("is-open");
       
-      // Position the root if it is a dropdown (not full-width)
       if (!root.classList.contains("w-full")) {
         var triggerRect = trigger.getBoundingClientRect();
         var parentRect = root.parentElement.getBoundingClientRect();
         var leftPos = triggerRect.left - parentRect.left;
         
-        // Safety check to keep it within the container
         var rootWidth = root.offsetWidth || 240;
         if (leftPos + rootWidth > parentRect.width) {
           leftPos = parentRect.width - rootWidth;
@@ -66,7 +60,6 @@
         }
       });
 
-      // Update active state on triggers
       var nav = root.closest("nav") || trigger.closest("nav");
       if (nav) {
         nav.querySelectorAll("[data-mega-menu]").forEach(function(el) {
@@ -103,7 +96,7 @@
         if (menuState.activeRoot) {
           closeAll(menuState.activeRoot);
         }
-      }, 300); // Increased to 300ms for smoother handoffs
+      }, 300);
     }
 
     $(".mega-menu-trigger").each(function () {
@@ -255,7 +248,6 @@
   }
 
   function setupSliders() {
-    // Standard Sliders (using data-slider-prev, data-slider-next, data-slider-content)
     document.querySelectorAll("[data-slider-prev], [data-slider-next]").forEach(function (btn) {
       btn.addEventListener("click", function () {
         var id = this.getAttribute("data-slider-prev") || this.getAttribute("data-slider-next");
@@ -263,7 +255,6 @@
         var container = document.querySelector('[data-slider-content="' + id + '"]');
         if (!container) return;
 
-        // Calculate scroll amount based on first item width + gap
         var firstItem = container.querySelector(":scope > *");
         var scrollAmount = firstItem ? firstItem.offsetWidth + 24 : 300;
         
@@ -274,14 +265,13 @@
       });
     });
 
-    // Legacy/Old Scroll Buttons Support
     document.querySelectorAll(".scroll-btn").forEach(function (btn) {
       btn.addEventListener("click", function () {
         var dir = this.getAttribute("data-scroll-dir");
         var container = this.parentElement.querySelector("[data-scroll-container]");
         if (!container) return;
         
-        var scrollAmount = 324; // 300px width + 24px gap
+        var scrollAmount = 324;
         container.scrollBy({
           left: dir === "left" ? -scrollAmount : scrollAmount,
           behavior: "smooth",

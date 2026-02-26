@@ -1,5 +1,4 @@
 <?php
-// Global footer reused across all pages.
 if (!isset($rootPrefix)) {
   $rootPrefix = ".";
 }
@@ -164,7 +163,6 @@ if (!isset($rootPrefix)) {
   </div>
 </footer>
 
-<!-- Local jQuery-style helper + main JS -->
 <script src="<?php echo $rootPrefix; ?>/assets/js/jquery.min.js"></script>
 <script src="<?php echo $rootPrefix; ?>/assets/js/main.js"></script>
 </body>

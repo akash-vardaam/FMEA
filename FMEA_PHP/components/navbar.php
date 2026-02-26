@@ -1,10 +1,8 @@
 <?php
-// Mega-menu style navbar, translated from the React MegaMenu component.
 if (!isset($rootPrefix)) {
     $rootPrefix = "..";
 }
 
-// Define Navigation Data (Mirroring navigationItems from MegaMenu.tsx)
 $navigationItems = [
     [
         "label" => "About",

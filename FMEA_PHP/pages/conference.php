@@ -25,7 +25,6 @@ require_once __DIR__ . "/../components/navbar.php";
     <div class="hidden lg:block container relative">
         <div class="hidden lg:flex items-center justify-center gap-0 relative">
             <style>
-                /* Local styles for the white vertical dropdown */
                 [data-mega-menu].is-active>.mega-menu-trigger {
                     background-color: rgba(255, 255, 255, 0.15);
                     color: white;
@@ -41,7 +40,6 @@ require_once __DIR__ . "/../components/navbar.php";
                     padding: 0.75rem 1.5rem;
                     font-size: 0.875rem;
                     color: #4b5563;
-                    /* text-gray-600 */
                     transition: all 0.2s;
                     border-left: 3px solid transparent;
                     white-space: nowrap;

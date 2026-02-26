@@ -51,7 +51,7 @@ require_once __DIR__ . "/../components/navbar.php";
   </section>
 
   <!-- 2. Quick Actions Bar -->
-  <section class="py-6 bg-background -mt-8 relative z-20 flex justify-center">
+  <section class="py-6 bg-background -mt-8 relative z-20 flex justify-center quick-actions">
     <div class="container px-6">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div class="bg-card rounded-xl p-5 shadow-sm border border-border">
@@ -303,6 +303,14 @@ require_once __DIR__ . "/../components/navbar.php";
               <span
                 class="text-xs font-body font-medium px-2 py-1 bg-brand-charcoal text-white rounded-full border border-brand-charcoal">Administrators</span>
             </div>
+            <span
+              class="inline-flex items-center text-sm font-body font-medium text-primary group-hover:gap-2 transition-all mt-4">Learn
+              More<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-arrow-right ml-1 w-4 h-4 group-hover:translate-x-1 transition-transform">
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg></span>
           </div>
         </a>
 
@@ -340,6 +348,14 @@ require_once __DIR__ . "/../components/navbar.php";
               <span
                 class="text-xs font-body font-medium px-2 py-1 bg-primary text-primary-foreground rounded-full border border-primary">Educators</span>
             </div>
+            <span
+              class="inline-flex items-center text-sm font-body font-medium text-primary group-hover:gap-2 transition-all mt-4">Learn
+              More<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-arrow-right ml-1 w-4 h-4 group-hover:translate-x-1 transition-transform">
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg></span>
           </div>
         </a>
 
@@ -376,6 +392,14 @@ require_once __DIR__ . "/../components/navbar.php";
               <span
                 class="text-xs font-body font-medium px-2 py-1 bg-accent text-accent-foreground rounded-full border border-accent">Collegiate</span>
             </div>
+            <span
+              class="inline-flex items-center text-sm font-body font-medium text-primary group-hover:gap-2 transition-all mt-4">Learn
+              More<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-arrow-right ml-1 w-4 h-4 group-hover:translate-x-1 transition-transform">
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg></span>
           </div>
         </a>
 
@@ -411,6 +435,14 @@ require_once __DIR__ . "/../components/navbar.php";
               <span
                 class="text-xs font-body font-medium px-2 py-1 bg-brand-charcoal text-white rounded-full border border-brand-charcoal">Administrators</span>
             </div>
+            <span
+              class="inline-flex items-center text-sm font-body font-medium text-primary group-hover:gap-2 transition-all mt-4">Learn
+              More<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-arrow-right ml-1 w-4 h-4 group-hover:translate-x-1 transition-transform">
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg></span>
           </div>
         </a>
       </div>

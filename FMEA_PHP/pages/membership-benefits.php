@@ -391,7 +391,6 @@ $membershipTypes = [
     </section>
 
     <!-- CTA -->
-    <!-- CTA -->
     <section class="bg-primary">
       <div class="container px-6 py-16">
         <div class="max-w-4xl mx-auto text-center animate-fade-in">
